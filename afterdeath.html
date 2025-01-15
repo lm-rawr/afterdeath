@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfterDeath Project</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+        }
+
+        a {
+            color: #ff6464;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #ff9a9a;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: url('title.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #ffffff;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #ff6464;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 2rem;
+        }
+
+        .section img {
+            max-width: 80%; /* Restrict the width to 80% of the section container */
+            max-height: 70vh; /* Set a maximum height for the images */
+            margin: 0 auto; /* Center the images */
+            display: block; /* Ensure the images align centrally */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .image-container {
+            display: flex;
+            gap: 1rem; /* Space between the images */
+            justify-content: center; /* Center the images horizontally */
+            flex-wrap: wrap; /* Ensure responsiveness on smaller screens */
+        }
+
+        .image-container img {
+            max-width: 80%; /* Each image takes up about half the container's width */
+            max-height: 70vhpx; /* Ensure a consistent height */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            object-fit: cover; /* Ensures the image is cropped properly */
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+
+        /* Links Section */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .links a {
+            padding: 1rem 2rem;
+            background: #1f1f1f;
+            border: 2px solid #ff6464;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: inline-block;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .links a:hover {
+            background: #ff6464;
+            color: #121212;
+        }
+
+        /* Image Preview */
+        .image-preview {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .image-preview img {
+            max-width: 80%;
+            max-height: 70%;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 1);
+        }
+
+        .image-preview .caption {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            color: #f4f4f4;
+            text-align: center;
+        }
+
+        .image-preview .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #ff6464;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .image-preview .close-button:hover {
+            transform: scale(1.2);
+            background: #ff0000;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            background: #1f1f1f;
+            color: #ff6464;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-overlay"></div>
+        <div>
+            <h1>AfterDeath</h1>
+            <p>An Interactive Comic</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Introduction</h2>
+        <p>AfterDeath is an interactive comic that is embedded in the ideals of Hindu mythology. It illustrates the concept of karma and its importance in the afterlife. It deals with the consequences of sin and how the idea of “sin” itself is defined for Hindus.</p>
+        <img src="setup.jpg" alt="Introduction Image" data-caption="Setup of the Project that Includes a Projector Mounted over the Comic and Headphones for Sound">
+    </div>
+
+    <div class="section">
+        <h2>Background</h2>
+        <p>As the world has been engulfed by westernization and new media, I felt disconnected from my culture and the intriguing concepts it embraces. So, the idea of this project came to mind thinking that I’d be able to go back, look at what I was taught in my childhood and be familiar with my Hindu roots again. Through a minute lens into the broad world of Hinduism, AfterDeath not only serves as a commentary into how a religion sees the afterlife, but also attempts to provoke thought on how other cultures may present similar ideals in their contexts and myths. 
+    </p>
+        <div class="image-container">
+            <img src="bg.png" alt="Background Image" data-caption="A Quote from a Hindu Scripture Included in the Comic">
+            <img src="cowhead.png" alt="Background Image" data-caption="Killing Cow Signifying the Ultimate Hindu Sin (a panel)">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>The Interactive Aspect</h2>
+        <p>The interaction in "AfterDeath" is primarily manifested through the act of turning pages within the comic. Each turn of the page reveals static physical images on the left side and corresponding animations on the right side. These elements are intricately linked to the unfolding narrative of the comic. The animations are designed to be gradually unveiled as the reader progresses through the static images on the left, creating a sense of revelation that the concept of the afterlife holds. Furthermore, the repercussions of events depicted in the animations are unveiled as the reader transitions to subsequent pages, enhancing the thematic exploration of revelation within the comic. Embedded within the narrative is a compelling storyline centered around the consequences of killing a cow and the ensuing suffering in hell. To enhance the immersive experience, the comic provides headphones for readers to wear, as the animations are accompanied by sound, further immersing them in the narrative's auditory dimension.
+</p>
+        <img src="methodology.jpg" alt="Methodology Image" data-caption="The Comic Being Read">
+    </div>
+
+    <div class="section">
+        <h2>Code</h2>
+        <p>The project uses image detection models and projection mapping. It employs teachable machine and a p5.js sketch to execute the changing animations with pageflips. The p5.js code is below:</p>
+        <div class="links">
+            <a href="https://editor.p5js.org/Aadhar/sketches/xFv648-9X">View Code Repository</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Documentation</h2>
+        <div class="links">
+            <a href="https://youtu.be/33CtLzBeJCo" target="_blank">Watch the Video</a>
+            <a href="https://docs.google.com/document/d/1jx2oXqSIVeRUQrK6plL0Fj56ARduh3_-3mC9azFvQx0/edit?tab=t.0#heading=h.4lxfzhi550ba">Read the Capstone Paper</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 AfterDeath Project</p>
+    </footer>
+
+    <div class="image-preview">
+        <div class="close-button">&times;</div>
+        <img src="" alt="">
+        <p class="caption"></p>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.section img');
+        const preview = document.querySelector('.image-preview');
+        const previewImg = preview.querySelector('img');
+        const previewCaption = preview.querySelector('.caption');
+        const closeButton = preview.querySelector('.close-button');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                previewImg.src = img.src;
+                previewCaption.textContent = img.getAttribute('data-caption');
+                preview.style.display = 'flex';
+            });
+        });
+
+        closeButton.addEventListener('click', () => {
+            preview.style.display = 'none';
+        });
+
+        preview.addEventListener('click', (e) => {
+            if (e.target === preview) {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
