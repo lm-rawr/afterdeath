@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Book</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            margin: 0;
+        }
+        .book-container {
+            position: relative;
+            width: 75vw;
+            height: 80vh;
+            perspective: 1000px;
+        }
+        .book {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transform-origin: left;
+            transition: transform 1s;
+        }
+        .cover {
+            background-color: white;
+            z-index: 10;
+            left: 50%;
+        }
+        .cover img {
+            width: 100%;
+            object-fit: cover;
+        }
+        .left-page, .right-page {
+            top: 0;
+        }
+        .left-page {
+            left: 0;
+            z-index: 1;
+        }
+        .right-page {
+            left: 50%;
+            z-index: 2;
+        }
+        img{
+            width: 100%;
+            object-fit: cover;
+        }
+        video {
+            width: 100%;
+            display: none;
+        }
+      
+        .flipped {
+            transform: rotateY(-180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="book" id="book">
+            <!-- Cover page -->
+            <div class="page cover" id="cover" onclick="nextPage()">
+                <img src="media/title.jpg" alt="Book Cover">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = -1;
+        let currentVideo = null;  // Variable to store the currently playing video
+        const totalPages = 8;  // Total number of pages
+        const cover = document.getElementById("cover");
+        const book = document.querySelector(".book");
+
+        // function showCover(){
+        //     if (currentpage = -1){
+
+        //     }
+        // }
+
+        // Function to create and update pages dynamically
+        function updateBook() {
+            console.log(currentPage);
+            if (currentPage <= totalPages) {
+                const leftPage = document.createElement("div");
+                leftPage.classList.add("page", "left-page");
+                leftPage.onclick = prevPage;
+
+                const rightPage = document.createElement("div");
+                rightPage.classList.add("page", "right-page");
+                rightPage.onclick = nextPage;
+
+                // Add dynamic content based on the current page number
+                const leftImage = document.createElement("img");
+                leftImage.src = `media/page${currentPage + 1}.png`;  // Dynamic image path
+                leftPage.appendChild(leftImage);
+
+                const rightVideo = document.createElement("video");
+                rightVideo.src = `media/video${currentPage + 1}.mp4`;  // Dynamic video path
+                rightVideo.style.display = 'block'
+                rightVideo.play();
+                rightPage.appendChild(rightVideo);
+
+                 // If a video was already playing, stop it
+                if (currentVideo) {
+                    currentVideo.pause();  // Pause the current video
+                    currentVideo.currentTime = 0;  // Reset the current time (optional)
+                }
+
+                // Set the new video as the current video
+                currentVideo = rightVideo;
+
+                // Insert the pages into the book container
+                book.appendChild(leftPage);
+                book.appendChild(rightPage);
+
+                // Flip the cover when the first page is opened
+                if (currentPage === 0) {
+                    cover.classList.add("flipped");
+                } else {
+                    const previousRightPage = book.querySelectorAll(".right-page")[currentPage - 1];
+                    previousRightPage?.classList.add("flipped");
+                }
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateBook();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updateBook();
+            }
+        }
+
+        //updateBook();  // Initialize the first page
+    </script>
+</body>
+</html>
